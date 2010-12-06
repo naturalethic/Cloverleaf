@@ -1,0 +1,429 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		420CECB912AD45000046E612 /* Cloverleaf.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CECB712AD45000046E612 /* Cloverleaf.h */; };
+		420CECBA12AD45000046E612 /* Cloverleaf.mm in Sources */ = {isa = PBXBuildFile; fileRef = 420CECB812AD45000046E612 /* Cloverleaf.mm */; };
+		420CECD312AD454A0046E612 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 420CECC012AD454A0046E612 /* lib */; };
+		420CECD812AD456C0046E612 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 420CECD412AD456C0046E612 /* main.m */; };
+		420CECDA12AD456C0046E612 /* TestApp.coffee in Resources */ = {isa = PBXBuildFile; fileRef = 420CECD612AD456C0046E612 /* TestApp.coffee */; };
+		420CECDB12AD456C0046E612 /* TestApp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420CECD712AD456C0046E612 /* TestApp.xib */; };
+		420CED2312AD47CB0046E612 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420CED2212AD47CB0046E612 /* Cocoa.framework */; };
+		42AA4D4E12AA1DC0009FDE0E /* libnode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42AA4D4C12AA1DC0009FDE0E /* libnode.a */; };
+		42AA4D7312AA236A009FDE0E /* libv8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42AA4D7212AA236A009FDE0E /* libv8.a */; };
+		42AA4D7B12AA263A009FDE0E /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42AA4D7A12AA263A009FDE0E /* libssl.a */; };
+		42AA4D7F12AA2768009FDE0E /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42AA4D7E12AA2768009FDE0E /* libcrypto.a */; };
+		42AA50A612AA4F48009FDE0E /* Cloverleaf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42AA4E7012AA38D3009FDE0E /* Cloverleaf.framework */; };
+		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		42AA50C612AA504D009FDE0E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = Cloverleaf;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		420CECB712AD45000046E612 /* Cloverleaf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cloverleaf.h; path = src/Cloverleaf.h; sourceTree = "<group>"; };
+		420CECB812AD45000046E612 /* Cloverleaf.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Cloverleaf.mm; path = src/Cloverleaf.mm; sourceTree = "<group>"; };
+		420CECC012AD454A0046E612 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
+		420CECD412AD456C0046E612 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TestApp/main.m; sourceTree = "<group>"; };
+		420CECD612AD456C0046E612 /* TestApp.coffee */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TestApp.coffee; path = TestApp/TestApp.coffee; sourceTree = "<group>"; };
+		420CECD712AD456C0046E612 /* TestApp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TestApp.xib; path = TestApp/TestApp.xib; sourceTree = "<group>"; };
+		420CECEA12AD46000046E612 /* TestApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TestApp-Info.plist"; sourceTree = "<group>"; };
+		420CED2212AD47CB0046E612 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		42AA4D4C12AA1DC0009FDE0E /* libnode.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libnode.a; path = vendor/lib/libnode.a; sourceTree = "<group>"; };
+		42AA4D7212AA236A009FDE0E /* libv8.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libv8.a; path = vendor/lib/libv8.a; sourceTree = "<group>"; };
+		42AA4D7A12AA263A009FDE0E /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = vendor/lib/libssl.a; sourceTree = "<group>"; };
+		42AA4D7E12AA2768009FDE0E /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = vendor/lib/libcrypto.a; sourceTree = "<group>"; };
+		42AA4E7012AA38D3009FDE0E /* Cloverleaf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Cloverleaf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		42AA503812AA45F7009FDE0E /* TestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		42AA503612AA45F7009FDE0E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42AA50A612AA4F48009FDE0E /* Cloverleaf.framework in Frameworks */,
+				420CED2312AD47CB0046E612 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DC2EF560486A6940098B216 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
+				42AA4D4E12AA1DC0009FDE0E /* libnode.a in Frameworks */,
+				42AA4D7312AA236A009FDE0E /* libv8.a in Frameworks */,
+				42AA4D7B12AA263A009FDE0E /* libssl.a in Frameworks */,
+				42AA4D7F12AA2768009FDE0E /* libcrypto.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DFFF38A50411DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				42AA4E7012AA38D3009FDE0E /* Cloverleaf.framework */,
+				42AA503812AA45F7009FDE0E /* TestApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* Node */ = {
+			isa = PBXGroup;
+			children = (
+				42AA4FD912AA3B3E009FDE0E /* Cloverleaf */,
+				089C1665FE841158C02AAC07 /* Resources */,
+				42AA506E12AA46F0009FDE0E /* TestApp */,
+				0867D69AFE84028FC02AAC07 /* Libraries */,
+				034768DFFF38A50411DB9C8B /* Products */,
+				420CED2212AD47CB0046E612 /* Cocoa.framework */,
+			);
+			name = Node;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				42AA4D7E12AA2768009FDE0E /* libcrypto.a */,
+				42AA4D7A12AA263A009FDE0E /* libssl.a */,
+				42AA4D7212AA236A009FDE0E /* libv8.a */,
+				42AA4D4C12AA1DC0009FDE0E /* libnode.a */,
+				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		089C1665FE841158C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				420CECC012AD454A0046E612 /* lib */,
+				8DC2EF5A0486A6940098B216 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		42AA4FD912AA3B3E009FDE0E /* Cloverleaf */ = {
+			isa = PBXGroup;
+			children = (
+				420CECB712AD45000046E612 /* Cloverleaf.h */,
+				420CECB812AD45000046E612 /* Cloverleaf.mm */,
+			);
+			name = Cloverleaf;
+			sourceTree = "<group>";
+		};
+		42AA506E12AA46F0009FDE0E /* TestApp */ = {
+			isa = PBXGroup;
+			children = (
+				420CECEA12AD46000046E612 /* TestApp-Info.plist */,
+				420CECD412AD456C0046E612 /* main.m */,
+				420CECD612AD456C0046E612 /* TestApp.coffee */,
+				420CECD712AD456C0046E612 /* TestApp.xib */,
+			);
+			name = TestApp;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8DC2EF500486A6940098B216 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				420CECB912AD45000046E612 /* Cloverleaf.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		42AA503712AA45F7009FDE0E /* TestApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 42AA503D12AA45F7009FDE0E /* Build configuration list for PBXNativeTarget "TestApp" */;
+			buildPhases = (
+				42AA503412AA45F7009FDE0E /* Resources */,
+				42AA503512AA45F7009FDE0E /* Sources */,
+				42AA503612AA45F7009FDE0E /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				42AA50C712AA504D009FDE0E /* PBXTargetDependency */,
+			);
+			name = TestApp;
+			productName = TestApp;
+			productReference = 42AA503812AA45F7009FDE0E /* TestApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8DC2EF4F0486A6940098B216 /* Cloverleaf */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "Cloverleaf" */;
+			buildPhases = (
+				8DC2EF500486A6940098B216 /* Headers */,
+				8DC2EF520486A6940098B216 /* Resources */,
+				8DC2EF540486A6940098B216 /* Sources */,
+				8DC2EF560486A6940098B216 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Cloverleaf;
+			productInstallPath = "$(HOME)/Library/Frameworks";
+			productName = Node;
+			productReference = 42AA4E7012AA38D3009FDE0E /* Cloverleaf.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "Cloverleaf" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 0867D691FE84028FC02AAC07 /* Node */;
+			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DC2EF4F0486A6940098B216 /* Cloverleaf */,
+				42AA503712AA45F7009FDE0E /* TestApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		42AA503412AA45F7009FDE0E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				420CECDA12AD456C0046E612 /* TestApp.coffee in Resources */,
+				420CECDB12AD456C0046E612 /* TestApp.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DC2EF520486A6940098B216 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				420CECD312AD454A0046E612 /* lib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		42AA503512AA45F7009FDE0E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				420CECD812AD456C0046E612 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DC2EF540486A6940098B216 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				420CECBA12AD45000046E612 /* Cloverleaf.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		42AA50C712AA504D009FDE0E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* Cloverleaf */;
+			targetProxy = 42AA50C612AA504D009FDE0E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB91AE08733DA50010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/vendor/lib\"",
+				);
+				MACH_O_TYPE = mh_dylib;
+				PRODUCT_NAME = Cloverleaf;
+				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		1DEB91AF08733DA50010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/vendor/lib\"",
+				);
+				MACH_O_TYPE = mh_dylib;
+				PRODUCT_NAME = Cloverleaf;
+				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		1DEB91B208733DA50010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = vendor/include;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		1DEB91B308733DA50010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = vendor/include;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+		42AA503B12AA45F7009FDE0E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "TestApp-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = TestApp;
+			};
+			name = Debug;
+		};
+		42AA503C12AA45F7009FDE0E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "TestApp-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = TestApp;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "Cloverleaf" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91AE08733DA50010E9CD /* Debug */,
+				1DEB91AF08733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "Cloverleaf" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91B208733DA50010E9CD /* Debug */,
+				1DEB91B308733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		42AA503D12AA45F7009FDE0E /* Build configuration list for PBXNativeTarget "TestApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				42AA503B12AA45F7009FDE0E /* Debug */,
+				42AA503C12AA45F7009FDE0E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}
