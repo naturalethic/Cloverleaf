@@ -44,6 +44,7 @@ int MatchType(const char *type, const char *test)
 
 v8::Handle<v8::Value> CallNativeMethod(const v8::Arguments &args)
 {
+  v8::HandleScope scope;
   id  target = (id)args.Holder()->GetPointerFromInternalField(0);
   SEL selector;
   int argumentCount = 0;
@@ -80,7 +81,6 @@ v8::Handle<v8::Value> CallNativeMethod(const v8::Arguments &args)
     NSLog(@"Class Call: %s %s", class_getName([target class]), selector);
   else
     NSLog(@"Instance Call: %s %s", class_getName([target class]), selector);
-  v8::HandleScope scope;
   if (![target respondsToSelector:selector])
     return v8::ThrowException(v8::Exception::TypeError(v8::String::New("object does not respond to selector")));
   NSMethodSignature *signature  = [target methodSignatureForSelector:selector];
@@ -189,8 +189,8 @@ v8::Handle<v8::Value> CallNativeMethod(const v8::Arguments &args)
       v8_value = instanceConstructor->GetFunction()->NewInstance();
       v8_value->ToObject()->SetPointerInInternalField(0, o);
     }
-    NSLog(@"Releasing result");
-    [o release];
+    //NSLog(@"Releasing result");
+    //[o release];
     return scope.Close(v8_value);
   }
   else if (MatchType(type, "{CGRect"))
@@ -216,7 +216,7 @@ void ExposeNativeClass(Class nativeClass)
 {
   if ([nativeClassStorage objectForKey:NSStringFromClass(nativeClass)])
     return;
-  NSLog(@"Expose:  %@", NSStringFromClass(nativeClass));
+  // NSLog(@"Expose:  %@", NSStringFromClass(nativeClass));
   v8::Persistent<v8::FunctionTemplate> classConstructor = v8::Persistent<v8::FunctionTemplate>::New(v8::FunctionTemplate::New());
   // v8::Handle<v8::FunctionTemplate> classConstructor = v8::FunctionTemplate::New();
   [nativeClassStorage setObject:[CLFunctionTemplate dataWithV8FunctionTemplate:classConstructor] forKey:NSStringFromClass(nativeClass)];
@@ -225,7 +225,7 @@ void ExposeNativeClass(Class nativeClass)
     ExposeNativeClass([nativeClass superclass]);
     v8::Handle<v8::FunctionTemplate> parentConstructor = (
         [[nativeClassStorage objectForKey:NSStringFromClass([nativeClass superclass])] v8FunctionTemplate]);
-    NSLog(@"Inherit: %@ <- %@", NSStringFromClass(nativeClass), NSStringFromClass([nativeClass superclass]));
+    // NSLog(@"Inherit: %@ <- %@", NSStringFromClass(nativeClass), NSStringFromClass([nativeClass superclass]));
     classConstructor->Inherit(parentConstructor);
   }
   unsigned methodCount;
@@ -249,7 +249,7 @@ void ExposeNativeClass(Class nativeClass)
   // Set up instance prototype
   v8::Persistent<v8::FunctionTemplate> instanceConstructor = v8::Persistent<v8::FunctionTemplate>::New(v8::FunctionTemplate::New());
   instanceConstructor->InstanceTemplate()->SetInternalFieldCount(1);
-  NSLog(@"Store:   %@ (Class Instance)", NSStringFromClass(nativeClass));
+  // NSLog(@"Store:   %@ (Class Instance)", NSStringFromClass(nativeClass));
   [nativeInstanceStorage setObject:[CLFunctionTemplate dataWithV8FunctionTemplate:instanceConstructor] forKey:NSStringFromClass(nativeClass)];
   methodList = class_copyMethodList(nativeClass, &methodCount);
   for (unsigned m = 0; m < methodCount; m++)
@@ -284,7 +284,8 @@ void InitializeNativeBinding()
   for (int i = 0; i < classCount; i++)
   {
     className = class_getName(classList[i]);
-    if (strncmp(className, "NS", 2) == 0 && strcmp(className, "NSMessageBuilder") != 0)
+    if (strcmp(className, "NSMessageBuilder") != 0 && 
+        (strncmp(className, "NS", 2) == 0 || strcmp(className, "Cloverleaf") == 0))
     {
       ExposeNativeClass(objc_getClass(className));
     }
@@ -301,6 +302,20 @@ void InitializeNativeBinding()
     if (!sharedInstance) sharedInstance = [[Cloverleaf alloc] init];
   }
   return sharedInstance;
+}
+
++ (void)loadMainNib
+{
+  if ([NSThread isMainThread])
+  {
+    NSString *mainNibName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"NSMainNibFile"];
+    NSNib *mainNib = [[NSNib alloc] initWithNibNamed:mainNibName bundle:[NSBundle mainBundle]];
+    [mainNib instantiateNibWithOwner:NSApp topLevelObjects:nil];
+  }
+  else 
+  {
+    [Cloverleaf performSelectorOnMainThread:@selector(loadMainNib) withObject:nil waitUntilDone:NO];
+  }
 }
 
 - (void)start
@@ -322,11 +337,13 @@ void InitializeNativeBinding()
     InitializeNativeBinding();
     node::GetContext()->Exit();
     node::Run();
+    NSLog(@"Node exited");
   }
   else
   {
     thread = [[NSThread alloc] initWithTarget:self selector:@selector(start) object:nil];
     [thread start];
+    [[NSClassFromString([[[NSBundle mainBundle] infoDictionary] objectForKey:@"NSPrincipalClass"]) sharedApplication] run];
   }
 }
 
