@@ -14,6 +14,16 @@
 		420CECDA12AD456C0046E612 /* TestApp.coffee in Resources */ = {isa = PBXBuildFile; fileRef = 420CECD612AD456C0046E612 /* TestApp.coffee */; };
 		420CECDB12AD456C0046E612 /* TestApp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420CECD712AD456C0046E612 /* TestApp.xib */; };
 		420CED2312AD47CB0046E612 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420CED2212AD47CB0046E612 /* Cocoa.framework */; };
+		420CF0BA12AE170A0046E612 /* V8Object.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CF0B812AE170A0046E612 /* V8Object.h */; };
+		420CF0BB12AE170A0046E612 /* V8Object.mm in Sources */ = {isa = PBXBuildFile; fileRef = 420CF0B912AE170A0046E612 /* V8Object.mm */; };
+		420CF17212AE2A400046E612 /* V8FunctionTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CF17012AE2A400046E612 /* V8FunctionTemplate.h */; };
+		420CF17312AE2A400046E612 /* V8FunctionTemplate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 420CF17112AE2A400046E612 /* V8FunctionTemplate.mm */; };
+		420CF17A12AE2A680046E612 /* V8Value.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CF17812AE2A680046E612 /* V8Value.h */; };
+		420CF17B12AE2A680046E612 /* V8Value.mm in Sources */ = {isa = PBXBuildFile; fileRef = 420CF17912AE2A680046E612 /* V8Value.mm */; };
+		420CF1BF12AE2F860046E612 /* V8Function.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CF1BD12AE2F860046E612 /* V8Function.h */; };
+		420CF1C012AE2F860046E612 /* V8Function.mm in Sources */ = {isa = PBXBuildFile; fileRef = 420CF1BE12AE2F860046E612 /* V8Function.mm */; };
+		420CF20A12AE38FB0046E612 /* V8Array.h in Headers */ = {isa = PBXBuildFile; fileRef = 420CF20812AE38FB0046E612 /* V8Array.h */; };
+		420CF20B12AE38FB0046E612 /* V8Array.mm in Sources */ = {isa = PBXBuildFile; fileRef = 420CF20912AE38FB0046E612 /* V8Array.mm */; };
 		42AA4D4E12AA1DC0009FDE0E /* libnode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42AA4D4C12AA1DC0009FDE0E /* libnode.a */; };
 		42AA4D7312AA236A009FDE0E /* libv8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42AA4D7212AA236A009FDE0E /* libv8.a */; };
 		42AA4D7B12AA263A009FDE0E /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42AA4D7A12AA263A009FDE0E /* libssl.a */; };
@@ -42,6 +52,16 @@
 		420CECD712AD456C0046E612 /* TestApp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TestApp.xib; path = TestApp/TestApp.xib; sourceTree = "<group>"; };
 		420CECEA12AD46000046E612 /* TestApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TestApp-Info.plist"; sourceTree = "<group>"; };
 		420CED2212AD47CB0046E612 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		420CF0B812AE170A0046E612 /* V8Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = V8Object.h; path = src/V8Object.h; sourceTree = "<group>"; };
+		420CF0B912AE170A0046E612 /* V8Object.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = V8Object.mm; path = src/V8Object.mm; sourceTree = "<group>"; };
+		420CF17012AE2A400046E612 /* V8FunctionTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = V8FunctionTemplate.h; path = src/V8FunctionTemplate.h; sourceTree = "<group>"; };
+		420CF17112AE2A400046E612 /* V8FunctionTemplate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = V8FunctionTemplate.mm; path = src/V8FunctionTemplate.mm; sourceTree = "<group>"; };
+		420CF17812AE2A680046E612 /* V8Value.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = V8Value.h; path = src/V8Value.h; sourceTree = "<group>"; };
+		420CF17912AE2A680046E612 /* V8Value.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = V8Value.mm; path = src/V8Value.mm; sourceTree = "<group>"; };
+		420CF1BD12AE2F860046E612 /* V8Function.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = V8Function.h; path = src/V8Function.h; sourceTree = "<group>"; };
+		420CF1BE12AE2F860046E612 /* V8Function.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = V8Function.mm; path = src/V8Function.mm; sourceTree = "<group>"; };
+		420CF20812AE38FB0046E612 /* V8Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = V8Array.h; path = src/V8Array.h; sourceTree = "<group>"; };
+		420CF20912AE38FB0046E612 /* V8Array.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = V8Array.mm; path = src/V8Array.mm; sourceTree = "<group>"; };
 		42AA4D4C12AA1DC0009FDE0E /* libnode.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libnode.a; path = vendor/lib/libnode.a; sourceTree = "<group>"; };
 		42AA4D7212AA236A009FDE0E /* libv8.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libv8.a; path = vendor/lib/libv8.a; sourceTree = "<group>"; };
 		42AA4D7A12AA263A009FDE0E /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = vendor/lib/libssl.a; sourceTree = "<group>"; };
@@ -124,6 +144,16 @@
 			children = (
 				420CECB712AD45000046E612 /* Cloverleaf.h */,
 				420CECB812AD45000046E612 /* Cloverleaf.mm */,
+				420CF17812AE2A680046E612 /* V8Value.h */,
+				420CF17912AE2A680046E612 /* V8Value.mm */,
+				420CF0B812AE170A0046E612 /* V8Object.h */,
+				420CF0B912AE170A0046E612 /* V8Object.mm */,
+				420CF20812AE38FB0046E612 /* V8Array.h */,
+				420CF20912AE38FB0046E612 /* V8Array.mm */,
+				420CF1BD12AE2F860046E612 /* V8Function.h */,
+				420CF1BE12AE2F860046E612 /* V8Function.mm */,
+				420CF17012AE2A400046E612 /* V8FunctionTemplate.h */,
+				420CF17112AE2A400046E612 /* V8FunctionTemplate.mm */,
 			);
 			name = Cloverleaf;
 			sourceTree = "<group>";
@@ -147,6 +177,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				420CECB912AD45000046E612 /* Cloverleaf.h in Headers */,
+				420CF0BA12AE170A0046E612 /* V8Object.h in Headers */,
+				420CF17212AE2A400046E612 /* V8FunctionTemplate.h in Headers */,
+				420CF17A12AE2A680046E612 /* V8Value.h in Headers */,
+				420CF1BF12AE2F860046E612 /* V8Function.h in Headers */,
+				420CF20A12AE38FB0046E612 /* V8Array.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +285,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				420CECBA12AD45000046E612 /* Cloverleaf.mm in Sources */,
+				420CF0BB12AE170A0046E612 /* V8Object.mm in Sources */,
+				420CF17312AE2A400046E612 /* V8FunctionTemplate.mm in Sources */,
+				420CF17B12AE2A680046E612 /* V8Value.mm in Sources */,
+				420CF1C012AE2F860046E612 /* V8Function.mm in Sources */,
+				420CF20B12AE38FB0046E612 /* V8Array.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

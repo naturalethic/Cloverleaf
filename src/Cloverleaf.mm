@@ -1,45 +1,121 @@
 #import "Cloverleaf.h"
+#import "V8Value.h"
+#import "V8Object.h"
+#import "V8Array.h"
+#import "V8Function.h"
+#import "V8FunctionTemplate.h"
 #import <objc/runtime.h>
+#import <objc/message.h>
 #import <node.h>
 
 NSMutableDictionary *nativeClassStorage;
 NSMutableDictionary *nativeInstanceStorage;
+NSMutableDictionary *userClassStorage;
 
-@interface CLFunctionTemplate : NSObject
+BOOL MatchType(const char *type, const char *test)
 {
-  v8::Handle<v8::FunctionTemplate> v8FunctionTemplate;
+  return strncmp(type, test, strlen(test)) == 0;
 }
 
-+ (id)dataWithV8FunctionTemplate:(v8::Handle<v8::FunctionTemplate>)v8FunctionTemplate;
-- (id)initWithV8FunctionTemplate:(v8::Handle<v8::FunctionTemplate>)v8FunctionTemplate;
-- (v8::Handle<v8::FunctionTemplate>)v8FunctionTemplate;
+@interface CLProxy : NSProxy
+{
+  NSObject *parent;  // The prototype (cocoa instance)
+  V8Object *object;  // The prototype
+  V8Object *myself;  // The instance
+}
 
 @end
 
-@implementation CLFunctionTemplate
+// XXX: This whole thing needs to be checked for thread safety.
+@implementation CLProxy
 
-+ (id)dataWithV8FunctionTemplate:(v8::Handle<v8::FunctionTemplate>)v8FunctionTemplate
+- (id)init
 {
-  return [[self alloc] initWithV8FunctionTemplate:v8FunctionTemplate];
-}
-
-- (id)initWithV8FunctionTemplate:(v8::Handle<v8::FunctionTemplate>)v8FunctionTemplate_
-{
-  [self init];
-  v8FunctionTemplate = v8FunctionTemplate_;
+  NSLog(@"Initializing proxy: %@", [self class]);
+  object = (V8Object *)[userClassStorage objectForKey:[NSString stringWithCString:class_getName([self class]) encoding:NSASCIIStringEncoding]];
+  parent = (id)[object handle]->GetPointerFromInternalField(0);
+  myself = [V8Object object];
+  NSLog(@"Parent: %@", parent);
   return self;
 }
 
-- (v8::Handle<v8::FunctionTemplate>)v8FunctionTemplate
+- (BOOL)respondsToSelector:(SEL)selector
 {
-  return v8FunctionTemplate;
+  NSLog(@"respondsToSelector: %s parent: %d", selector, [parent respondsToSelector:selector]);
+  if ([object hasKey:NSStringFromSelector(selector)])
+  {
+    V8Value *value = [object valueForKey:NSStringFromSelector(selector)];
+    if ([value isFunction])
+    {
+      return YES;
+    }
+  }
+  return [parent respondsToSelector:selector];
 }
+
+- (void)forwardInvocation:(NSInvocation *)invocation
+{
+  NSLog(@"forwardInvocation: %s", [invocation selector]);
+  if ([object hasKey:NSStringFromSelector([invocation selector])])
+  {
+    V8Value *value = [object valueForKey:NSStringFromSelector([invocation selector])];
+    if ([value isKindOfClass:[V8Function class]])
+    {
+      V8Array *arguments = [V8Array array];
+      for (int i = 2; i < [[invocation methodSignature] numberOfArguments]; i++)
+      {
+//        const char *type = [[invocation methodSignature] getArgumentTypeAtIndex:i];
+//        [arguments push:
+      }
+      [(V8Function *)value callWithReceiver:myself arguments:arguments];
+      return;
+    }
+  }
+  [invocation invokeWithTarget:parent];
+}
+
+// iOS 4 only
+// - (id)forwardingTargetForSelector:(SEL)selector
+// {
+//   NSLog(@"forwardingTargetForSelector: %s", selector);
+//   return parent;
+// }
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)selector
+{
+  NSLog(@"methodSignatureForSelector: %s", selector);
+  return [parent methodSignatureForSelector:selector];
+}
+
+// dealloc needs to be defined to remove the persistent object
 
 @end
 
-int MatchType(const char *type, const char *test)
+
+v8::Handle<v8::Value> RegisterUserClass(const v8::Arguments &args)
 {
-  return strncmp(type, test, strlen(test)) == 0;
+  v8::HandleScope scope;
+  const char *name = (const char *)*v8::String::AsciiValue(args[0]);
+  Class parent = (Class)args[1]->ToObject()->GetPointerFromInternalField(0);
+//  Class userClass = objc_allocateClassPair(parent, name, 0);
+  Class userClass = objc_allocateClassPair([CLProxy class], name, 0);
+  NSLog(@"Register: %s <- %@", name, parent);
+//  class_addMethod(userClass, @selector(respondsToSelector:), (IMP)UserClassRespondsToSelector, "B@::");
+//  class_addMethod(userClass, @selector(doesNotRecognizeSelector:), (IMP)UserClassDoesNotRecognizeSelector, "v@::");
+//  class_addMethod(userClass, @selector(forwardInvocation:), (IMP)UserClassForwardInvocation, "v@:@");
+  //class_addMethod(userClass, @selector(methodSignatureForSelector:), (IMP)UserClassMethodSignatureForSelector, "@@::");
+  objc_registerClassPair(userClass);
+  v8::Handle<v8::ObjectTemplate> userClassTemplate = v8::ObjectTemplate::New();
+  userClassTemplate->SetInternalFieldCount(1);
+  v8::Handle<v8::Object> userClassInstance = v8::Persistent<v8::Object>::New(userClassTemplate->NewInstance());
+  userClassInstance->SetPointerInInternalField(0, [[parent alloc] init]);
+  v8::Handle<v8::Array> definedKeys = args[2]->ToObject()->GetPropertyNames();
+  for (int i = 0; i < definedKeys->Length(); i++)
+  {
+    userClassInstance->Set(definedKeys->Get(i), args[2]->ToObject()->Get(definedKeys->Get(i)));
+  }
+  [userClassStorage setObject:[V8Object objectWithHandle:userClassInstance] forKey:[NSString stringWithCString:name encoding:NSASCIIStringEncoding]];
+  return v8::Undefined();
 }
 
 v8::Handle<v8::Value> CallNativeMethod(const v8::Arguments &args)
@@ -50,6 +126,10 @@ v8::Handle<v8::Value> CallNativeMethod(const v8::Arguments &args)
   int argumentCount = 0;
   if (args.Length() > 0)
   {
+    // if (args[0]->IsString())
+    // {
+    //   return RegisterUserClass(target, *v8::String::AsciiValue(args[0]));
+    // }
     argumentCount = args[0]->ToObject()->GetPropertyNames()->Length();
   }
   v8::Handle<v8::Value> arguments[argumentCount];
@@ -184,7 +264,7 @@ v8::Handle<v8::Value> CallNativeMethod(const v8::Arguments &args)
     {
       NSLog(@"Wrap: %@", NSStringFromClass([o class]));
       v8::Handle<v8::FunctionTemplate> instanceConstructor = (
-          [[nativeInstanceStorage objectForKey:NSStringFromClass([o class])] v8FunctionTemplate]);
+          [[nativeInstanceStorage objectForKey:NSStringFromClass([o class])] handle]);
       instanceConstructor->InstanceTemplate()->SetCallAsFunctionHandler(CallNativeMethod);
       v8_value = instanceConstructor->GetFunction()->NewInstance();
       v8_value->ToObject()->SetPointerInInternalField(0, o);
@@ -219,12 +299,12 @@ void ExposeNativeClass(Class nativeClass)
   // NSLog(@"Expose:  %@", NSStringFromClass(nativeClass));
   v8::Persistent<v8::FunctionTemplate> classConstructor = v8::Persistent<v8::FunctionTemplate>::New(v8::FunctionTemplate::New());
   // v8::Handle<v8::FunctionTemplate> classConstructor = v8::FunctionTemplate::New();
-  [nativeClassStorage setObject:[CLFunctionTemplate dataWithV8FunctionTemplate:classConstructor] forKey:NSStringFromClass(nativeClass)];
+  [nativeClassStorage setObject:[V8FunctionTemplate functionTemplateWithHandle:classConstructor] forKey:NSStringFromClass(nativeClass)];
   if ([nativeClass class] != [NSObject class] && [nativeClass superclass])
   {
     ExposeNativeClass([nativeClass superclass]);
     v8::Handle<v8::FunctionTemplate> parentConstructor = (
-        [[nativeClassStorage objectForKey:NSStringFromClass([nativeClass superclass])] v8FunctionTemplate]);
+        [[nativeClassStorage objectForKey:NSStringFromClass([nativeClass superclass])] handle]);
     // NSLog(@"Inherit: %@ <- %@", NSStringFromClass(nativeClass), NSStringFromClass([nativeClass superclass]));
     classConstructor->Inherit(parentConstructor);
   }
@@ -250,7 +330,7 @@ void ExposeNativeClass(Class nativeClass)
   v8::Persistent<v8::FunctionTemplate> instanceConstructor = v8::Persistent<v8::FunctionTemplate>::New(v8::FunctionTemplate::New());
   instanceConstructor->InstanceTemplate()->SetInternalFieldCount(1);
   // NSLog(@"Store:   %@ (Class Instance)", NSStringFromClass(nativeClass));
-  [nativeInstanceStorage setObject:[CLFunctionTemplate dataWithV8FunctionTemplate:instanceConstructor] forKey:NSStringFromClass(nativeClass)];
+  [nativeInstanceStorage setObject:[V8FunctionTemplate functionTemplateWithHandle:instanceConstructor] forKey:NSStringFromClass(nativeClass)];
   methodList = class_copyMethodList(nativeClass, &methodCount);
   for (unsigned m = 0; m < methodCount; m++)
   {
@@ -267,7 +347,7 @@ void ExposeNativeClass(Class nativeClass)
   if ([nativeClass class] != [NSObject class] && [nativeClass superclass])
   {
     v8::Handle<v8::FunctionTemplate> parentInstanceConstructor = (
-        [[nativeInstanceStorage objectForKey:NSStringFromClass([nativeClass superclass])] v8FunctionTemplate]);
+        [[nativeInstanceStorage objectForKey:NSStringFromClass([nativeClass superclass])] handle]);
     instanceConstructor->Inherit(parentInstanceConstructor);
   }
 }
@@ -276,7 +356,7 @@ void InitializeNativeBinding()
 {
   nativeClassStorage    = [NSMutableDictionary dictionaryWithCapacity:100];
   nativeInstanceStorage = [NSMutableDictionary dictionaryWithCapacity:100];
-  v8::HandleScope scope;
+  userClassStorage      = [NSMutableDictionary dictionaryWithCapacity:100];
   const char *className;
   int classCount = objc_getClassList(nil, 0);
   Class classList[classCount];
@@ -290,6 +370,8 @@ void InitializeNativeBinding()
       ExposeNativeClass(objc_getClass(className));
     }
   }
+  v8::Handle<v8::FunctionTemplate> registerTemplate = v8::FunctionTemplate::New(RegisterUserClass);
+  v8::Context::GetCurrent()->Global()->Set(v8::String::New("Class"), registerTemplate->GetFunction());
 }
 
 @implementation Cloverleaf
@@ -334,8 +416,8 @@ void InitializeNativeBinding()
     node::Initialize(2, argv);
     free(argv);
     node::GetContext()->Enter();
+    v8::HandleScope scope;
     InitializeNativeBinding();
-    node::GetContext()->Exit();
     node::Run();
     NSLog(@"Node exited");
   }

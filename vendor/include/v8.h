@@ -192,7 +192,8 @@ template <class T> class Handle {
      * handles. For example, converting from a Handle<String> to a
      * Handle<Number>.
      */
-    TYPE_CHECK(T, S);
+    // Cloverleaf: This check screws up when classes have similar signatures but different v8 types
+    // TYPE_CHECK(T, S);
   }
 
   /**
